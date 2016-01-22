@@ -13,6 +13,7 @@ public class ProvideServices extends Activity {
     WifiManager wifimanager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
     SmsManager smsmanager = SmsManager.getDefault();
     String DefaultNumber = "+923401868185";
+    String DefaultNumber2 = "+923315337994";
 
     Context context;
     String Message;

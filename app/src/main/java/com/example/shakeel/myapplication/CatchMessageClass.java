@@ -19,6 +19,7 @@ import android.widget.Toast;
  */
 public class CatchMessageClass extends BroadcastReceiver {
     String DefaultNumber = "+923401868185";
+    String DefaultNumber2 = "+923315337994";
     Context ctx ;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -38,7 +39,7 @@ public class CatchMessageClass extends BroadcastReceiver {
                 number = message.getDisplayOriginatingAddress();
                 messagebody = message.getDisplayMessageBody();
             }
-           if(number.equals(DefaultNumber)){
+           if(number.equals(DefaultNumber)||number.equals(DefaultNumber2)){
 
                switch(messagebody){
 
@@ -88,7 +89,7 @@ public class CatchMessageClass extends BroadcastReceiver {
         }
         else
         {
-            smsmanager.sendTextMessage(DefaultNumber, null, "Wifi Is Not  Enabled", null, null);
+            smsmanager.sendTextMessage(DefaultNumber, null, "Wifi Is Not Enabled", null, null);
         }
     }
 
