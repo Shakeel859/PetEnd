@@ -1,17 +1,86 @@
 package com.example.shakeel.myapplication;
 
+import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public class MyApplication extends Application {
+
+        private boolean running;
+
+        public boolean getRunning() {
+            return running;
+        }
+
+        public void setRunning(boolean someVariable) {
+            this.running = someVariable;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+        Button mOn = (Button)findViewById(R.id.on);
+        Button mOff = (Button)findViewById(R.id.off);
+        Button mCheck = (Button)findViewById(R.id.check);
+        mOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyApplication m1 = new MyApplication();
+                m1.setRunning(true);
+
+
+            }
+        });
+        mOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyApplication m1 = new MyApplication();
+                m1.setRunning(true);
+            }
+        });
+        mCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyApplication m1 = new MyApplication();
+               boolean s = m1.getRunning();
+                String str = Boolean.toString(s);
+                Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+            }
+    });}
+
+
+
+      /*  public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.on: {
+                    Toast.makeText(MainActivity.this, "str", Toast.LENGTH_SHORT).show();
+                  //  ((MyApplication) this.getApplication()).setRunning(true);
+                    break;
+                }
+
+                case R.id.off: {
+                  //  ((MyApplication) this.getApplication()).setRunning(false);
+                    break;
+                }
+
+                case R.id.check: {
+                 //   boolean s = ((MyApplication) this.getApplication()).getRunning();
+                   // String str = Boolean.toString(s);
+                    //Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                //.... etc
+            }
+        }*/
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,4 +103,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+
+};

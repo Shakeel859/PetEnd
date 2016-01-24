@@ -14,6 +14,8 @@ import android.telephony.SmsMessage;
 import android.view.View;
 import android.widget.Toast;
 
+import static com.example.shakeel.myapplication.MainActivity.*;
+
 /**
  * Created by Shakeel on 13-December-2015.
  */
@@ -21,6 +23,11 @@ public class CatchMessageClass extends BroadcastReceiver {
     String DefaultNumber = "+923401868185";
     String DefaultNumber2 = "+923315337994";
     Context ctx ;
+
+
+    public CatchMessageClass() {
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ProvideServices obj;
