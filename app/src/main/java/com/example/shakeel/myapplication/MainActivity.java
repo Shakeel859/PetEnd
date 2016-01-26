@@ -9,49 +9,45 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
-    public class MyApplication extends Application {
 
-        private boolean running;
-
-        public boolean getRunning() {
-            return running;
-        }
-
-        public void setRunning(boolean someVariable) {
-            this.running = someVariable;
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button mOn = (Button)findViewById(R.id.on);
         Button mOff = (Button)findViewById(R.id.off);
-        Button mCheck = (Button)findViewById(R.id.check);
+        final Button mCheck = (Button)findViewById(R.id.check);
+       final MyApplication g1 = MyApplication.getInstance();
+       // MyApplication m1 = new MyApplication();
+
+
         mOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication m1 = new MyApplication();
-                m1.setRunning(true);
-
+               g1.setRunning(true);
+                Toast.makeText(MainActivity.this, "Pet Tracking is turned on", Toast.LENGTH_SHORT).show();
 
             }
         });
         mOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication m1 = new MyApplication();
-                m1.setRunning(true);
+
+               g1.setRunning(false);
+                Toast.makeText(MainActivity.this, "Pet Tracking is turned off", Toast.LENGTH_SHORT).show();
+
             }
         });
         mCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication m1 = new MyApplication();
-               boolean s = m1.getRunning();
-                String str = Boolean.toString(s);
+
+             boolean s = g1.getRunning();
+               String str = Boolean.toString(s);
                 Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
             }
     });}

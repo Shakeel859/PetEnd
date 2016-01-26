@@ -20,14 +20,14 @@
         android:text="OFF"
         android:id="@+id/off"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/on" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CHECK"
         android:id="@+id/check"
-        android:layout_below="@+id/off"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/off"
+        android:layout_marginBottom="67dp" />
 </RelativeLayout>
