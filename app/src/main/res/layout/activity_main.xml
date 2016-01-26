@@ -10,24 +10,26 @@
         android:layout_height="wrap_content"
         android:text="ON"
         android:id="@+id/on"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp" />
+        android:layout_alignTop="@+id/off"
+        android:layout_toEndOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OFF"
         android:id="@+id/off"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/on" />
+        android:layout_below="@+id/textView"
+        android:layout_toStartOf="@+id/textView"
+        android:layout_marginTop="157dp" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CHECK"
-        android:id="@+id/check"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/off"
-        android:layout_marginBottom="67dp" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp" />
+
 </RelativeLayout>

@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 
@@ -20,18 +22,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button mOn = (Button)findViewById(R.id.on);
         Button mOff = (Button)findViewById(R.id.off);
-        final Button mCheck = (Button)findViewById(R.id.check);
+      //  final Button mCheck = (Button)findViewById(R.id.check);
        final MyApplication g1 = MyApplication.getInstance();
+
+        boolean s = g1.getRunning();
+        String str = Boolean.toString(s);
+        final TextView textView = (TextView) findViewById(R.id.textView);
+        if (str =="true")
+            textView.setText("Pet Tracking is ON ");
+            else
+            textView.setText("Pet Tracking is OFF");
        // MyApplication m1 = new MyApplication();
 
 
-        mOn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               g1.setRunning(true);
-                Toast.makeText(MainActivity.this, "Pet Tracking is turned on", Toast.LENGTH_SHORT).show();
+            mOn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    g1.setRunning(true);
+                    Toast.makeText(MainActivity.this, "Pet Tracking is turned on", Toast.LENGTH_SHORT).show();
+                  //  TextView textView = (TextView) findViewById(R.id.textView);
+                    boolean s = g1.getRunning();
+                    String str = Boolean.toString(s);
+                    if (str=="true")
+                        textView.setText("Pet Tracking is ON ");
+                    else
+                        textView.setText("Pet Tracking is OFF");
 
-            }
+                }
         });
         mOff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,10 +56,17 @@ public class MainActivity extends AppCompatActivity {
 
                g1.setRunning(false);
                 Toast.makeText(MainActivity.this, "Pet Tracking is turned off", Toast.LENGTH_SHORT).show();
+               // TextView textView = (TextView) findViewById(R.id.textView);
+                boolean s = g1.getRunning();
+                String str = Boolean.toString(s);
+                if (str=="true")
+                    textView.setText("Pet Tracking is ON ");
+                else
+                    textView.setText("Pet Tracking is OFF");
 
             }
         });
-        mCheck.setOnClickListener(new View.OnClickListener() {
+       /* mCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -50,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                String str = Boolean.toString(s);
                 Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
             }
-    });}
+    }*/
+        ;}
 
 
 
@@ -94,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 
