@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:text="ON"
         android:id="@+id/on"
-        android:layout_alignTop="@+id/off"
+        android:layout_alignTop="@+id/save"
         android:layout_toEndOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OFF"
-        android:id="@+id/off"
+        android:id="@+id/save"
         android:layout_below="@+id/textView"
         android:layout_toStartOf="@+id/textView"
         android:layout_marginTop="157dp" />

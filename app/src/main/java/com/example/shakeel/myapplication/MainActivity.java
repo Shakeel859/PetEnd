@@ -1,6 +1,6 @@
 package com.example.shakeel.myapplication;
 
-import android.app.Application;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button mOn = (Button)findViewById(R.id.on);
-        Button mOff = (Button)findViewById(R.id.off);
+        Button mOff = (Button)findViewById(R.id.save);
       //  final Button mCheck = (Button)findViewById(R.id.check);
        final MyApplication g1 = MyApplication.getInstance();
 
@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
+            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+           // myIntent.putExtra(); //Optional parameters
+            MainActivity.this.startActivity(myIntent);
             return true;
         }
 
