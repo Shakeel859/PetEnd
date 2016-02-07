@@ -42,7 +42,7 @@ import static com.example.shakeel.myapplication.MainActivity.*;
 /**
  * Created by Shakeel on 13-December-2015.
  */
-
+// this is ne wcooment
 
 
 public class CatchMessageClass extends BroadcastReceiver {
@@ -86,6 +86,7 @@ public class CatchMessageClass extends BroadcastReceiver {
                 {
 
                     switch (messagebody) {
+                        //tjs os
 
                         case "Location":
                             final GPSTracker gps;
