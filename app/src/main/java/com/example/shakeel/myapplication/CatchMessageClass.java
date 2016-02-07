@@ -66,7 +66,7 @@ public class CatchMessageClass extends BroadcastReceiver {
        // String s1 = o1.GNumber().toString();
        boolean s = g1.getRunning();
         if (s == true) {
-            ProvideServices obj;
+          //  ProvideServices obj;
 
             this.ctx = context;
 
