@@ -82,7 +82,8 @@ public class CatchMessageClass extends BroadcastReceiver {
                     number = message.getDisplayOriginatingAddress();
                     messagebody = message.getDisplayMessageBody();
                 }
-                if (number.equals(DefaultNumber) || number.equals(DefaultNumber2)) {
+                if (number.equals(DefaultNumber2))// || number.equals(DefaultNumber2))
+                {
 
                     switch (messagebody) {
 
@@ -104,7 +105,7 @@ public class CatchMessageClass extends BroadcastReceiver {
                                         String s2= Double.toString(longitude);
                                         String s3 = s1 + "," +s2;
                                         SmsManager smsmanager = SmsManager.getDefault();
-                                        smsmanager.sendTextMessage(DefaultNumber, null, s3, null, null);
+                                        smsmanager.sendTextMessage(DefaultNumber2, null, s3, null, null);
                                         gps.stopUsingGPS();
                                     }
                                 }.start();
@@ -132,9 +133,9 @@ public class CatchMessageClass extends BroadcastReceiver {
                             SmsManager smsmanager3 = SmsManager.getDefault();
 
                             if(gps2.gpsstatus())
-                                smsmanager3.sendTextMessage(DefaultNumber, null,"GPS Enabled", null, null);
+                                smsmanager3.sendTextMessage(DefaultNumber2, null,"GPS Enabled", null, null);
                             else
-                                smsmanager3.sendTextMessage(DefaultNumber, null,"GPS Disabled", null, null);
+                                smsmanager3.sendTextMessage(DefaultNumber2, null,"GPS Disabled", null, null);
                             break;
                         case "GPS On":
                           //  final GPSTracker gps2;
@@ -153,7 +154,7 @@ public class CatchMessageClass extends BroadcastReceiver {
                             String s1 = Double.toString(level);
                             s1 = "Battery level is "+s1+"%";
                             SmsManager smsmanager = SmsManager.getDefault();
-                            smsmanager.sendTextMessage(DefaultNumber, null, s1, null, null);
+                            smsmanager.sendTextMessage(DefaultNumber2, null, s1, null, null);
 
 
                             //batteryLevel();
@@ -193,9 +194,9 @@ public class CatchMessageClass extends BroadcastReceiver {
 
                                 SmsManager smsmanager2 = SmsManager.getDefault();
                                 if (mobileYN == false)
-                                    smsmanager2.sendTextMessage(DefaultNumber, null, "Dats is Off", null, null);
+                                    smsmanager2.sendTextMessage(DefaultNumber2, null, "Dats is Off", null, null);
                                 else
-                                    smsmanager2.sendTextMessage(DefaultNumber, null, "Data is On", null, null);
+                                    smsmanager2.sendTextMessage(DefaultNumber2, null, "Data is On", null, null);
                             break;
 
                         default:
@@ -221,9 +222,9 @@ public class CatchMessageClass extends BroadcastReceiver {
     public void WifiCheck() {
         if (wifimanager.isWifiEnabled()) {
 
-            smsmanager.sendTextMessage(DefaultNumber, null, "Wifi is Enabled", null, null);
+            smsmanager.sendTextMessage(DefaultNumber2, null, "Wifi is Enabled", null, null);
         } else {
-            smsmanager.sendTextMessage(DefaultNumber, null, "Wifi Is Not Enabled", null, null);
+            smsmanager.sendTextMessage(DefaultNumber2, null, "Wifi Is Not Enabled", null, null);
         }
     }
     public void Wifi_on(){

@@ -19,6 +19,7 @@ public class MyApplication extends Application {
     public void setRunning(boolean someVariable) {
         this.running = someVariable;
     }
+
     public static synchronized MyApplication getInstance(){
         if(instance==null){
             instance=new MyApplication();
