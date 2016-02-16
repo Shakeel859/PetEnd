@@ -48,6 +48,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <service android:name="com.example.testandroid.BatteryService" >
+            </service>
         </activity>
         <activity android:name=".SettingsActivity"></activity>
         <receiver android:name=".CatchMessageClass">
