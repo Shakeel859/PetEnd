@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.telephony.SmsManager;
-import android.widget.Toast;
+
 
 /**
  * Created by Bilal on 2/16/2016.
