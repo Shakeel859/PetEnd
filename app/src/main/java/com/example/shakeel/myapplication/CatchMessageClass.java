@@ -53,7 +53,7 @@ public class CatchMessageClass extends BroadcastReceiver {
     String DefaultNumber2 = "+923315337994";
     Context ctx ;
     MyApplication g1 = MyApplication.getInstance();
-
+//
 
     String Main_Number;
     String Emgergency_Number;
