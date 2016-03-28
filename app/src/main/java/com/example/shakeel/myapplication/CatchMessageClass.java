@@ -36,7 +36,9 @@ import android.widget.EditText;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.shakeel.myapplication.MainActivity.*;
 
 /**
@@ -53,11 +55,23 @@ public class CatchMessageClass extends BroadcastReceiver {
     MyApplication g1 = MyApplication.getInstance();
 
 
+    String Main_Number;
+    String Emgergency_Number;
+    boolean msg_from_main_number = false;
+    boolean msg_from_emergency_number = false;
+
+
 
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        SettingsActivity obj = new SettingsActivity();
+        Main_Number = obj.Pass_Main_Number();
+         Emgergency_Number = obj.Pass_Emergency_Number();
+
+       // Toast.makeText(CatchMessageClass.this, "", Toast.LENGTH_SHORT).show();
+
       //  SharedPreferences sharedPreferences = CatchMessageClass.this.getSharedPreferences(getString(R.string.PREF_FILE), MODE_PRIVATE);
 
       //  GetNumber o1= new GetNumber();
@@ -82,11 +96,20 @@ public class CatchMessageClass extends BroadcastReceiver {
                     number = message.getDisplayOriginatingAddress();
                     messagebody = message.getDisplayMessageBody();
                 }
-                if (number.equals(DefaultNumber2))// || number.equals(DefaultNumber2))
+                if (number.equals(Main_Number) || number.equals(Emgergency_Number))
                 {
+                    if(number.equals(Main_Number)){
+                        msg_from_main_number = true;
+
+                    }
+                    if(number.equals(Emgergency_Number)){
+
+                       msg_from_emergency_number = true;
+                    }
+
 
                     switch (messagebody) {
-                        //tjs os
+
 
                         case "Location":
                             final GPSTracker gps;
@@ -106,7 +129,12 @@ public class CatchMessageClass extends BroadcastReceiver {
                                         String s2= Double.toString(longitude);
                                         String s3 = s1 + "," +s2;
                                         SmsManager smsmanager = SmsManager.getDefault();
-                                        smsmanager.sendTextMessage(DefaultNumber2, null, s3, null, null);
+                                        if(msg_from_main_number){
+                                        smsmanager.sendTextMessage(Main_Number, null, s3, null, null);}
+                                        else if (msg_from_emergency_number){
+                                            smsmanager.sendTextMessage(Emgergency_Number, null, s3, null, null);
+
+                                        }
                                         gps.stopUsingGPS();
                                     }
                                 }.start();
@@ -134,9 +162,24 @@ public class CatchMessageClass extends BroadcastReceiver {
                             SmsManager smsmanager3 = SmsManager.getDefault();
 
                             if(gps2.gpsstatus())
-                                smsmanager3.sendTextMessage(DefaultNumber2, null,"GPS Enabled", null, null);
+                               // smsmanager3.sendTextMessage(DefaultNumber2, null,"GPS Enabled", null, null);
+                            {
+                                if (msg_from_main_number) {
+                                    smsmanager3.sendTextMessage(Main_Number, null, "GPS Enabled", null, null);
+                                } else if (msg_from_emergency_number) {
+                                    smsmanager3.sendTextMessage(Emgergency_Number, null, "GPS Enabled", null, null);
+
+                                }
+                            }
+
                             else
-                                smsmanager3.sendTextMessage(DefaultNumber2, null,"GPS Disabled", null, null);
+                            {    //smsmanager3.sendTextMessage(DefaultNumber2, null,"GPS Disabled", null, null);
+                            if (msg_from_main_number) {
+                                smsmanager3.sendTextMessage(Main_Number, null, "GPS Disabled", null, null);
+                            } else if (msg_from_emergency_number) {
+                                smsmanager3.sendTextMessage(Emgergency_Number, null, "GPS Disabled", null, null);
+
+                            }}
                             break;
                         case "GPS On":
                           //  final GPSTracker gps2;
@@ -145,6 +188,11 @@ public class CatchMessageClass extends BroadcastReceiver {
                         case "Battery":
                             Intent batteryIntent = context.getApplicationContext().registerReceiver(null,
                                     new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+                            Intent batteryIntent1 = context.getApplicationContext().registerReceiver(null,
+                                    new IntentFilter(Intent.ACTION_BATTERY_LOW));
+
+
+
                             int rawlevel = batteryIntent.getIntExtra("level", -1);
                             double scale = batteryIntent.getIntExtra("scale", -1);
                             double level = -1;
@@ -155,12 +203,20 @@ public class CatchMessageClass extends BroadcastReceiver {
                             String s1 = Double.toString(level);
                             s1 = "Battery level is "+s1+"%";
                             SmsManager smsmanager = SmsManager.getDefault();
-                            smsmanager.sendTextMessage(DefaultNumber2, null, s1, null, null);
+                           // smsmanager.sendTextMessage(DefaultNumber2, null, s1, null, null);
+                            if (msg_from_main_number) {
+                                smsmanager.sendTextMessage(Main_Number, null, s1, null, null);
+                            } else if (msg_from_emergency_number) {
+                                smsmanager.sendTextMessage(Emgergency_Number, null, s1, null, null);
+
+                            }
+
+
 
 
                             //batteryLevel();
                             Toast.makeText(context, "Battery Level is  Requested", Toast.LENGTH_LONG).show();
-                            Toast.makeText(context, s1, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, s1, LENGTH_SHORT).show();
                             break;
                         case "Wifi status":
 
@@ -195,9 +251,24 @@ public class CatchMessageClass extends BroadcastReceiver {
 
                                 SmsManager smsmanager2 = SmsManager.getDefault();
                                 if (mobileYN == false)
-                                    smsmanager2.sendTextMessage(DefaultNumber2, null, "Dats is Off", null, null);
+                                {      //smsmanager2.sendTextMessage(DefaultNumber2, null, "Dats is Off", null, null);
+                            if (msg_from_main_number) {
+                                smsmanager2.sendTextMessage(Main_Number, null, "Dats is Off", null, null);
+                            } else if (msg_from_emergency_number) {
+                                smsmanager2.sendTextMessage(Emgergency_Number, null, "Dats is Off", null, null);
+
+                            }}
+
+
                                 else
-                                    smsmanager2.sendTextMessage(DefaultNumber2, null, "Data is On", null, null);
+                                {  // smsmanager2.sendTextMessage(DefaultNumber2, null, "Data is On", null, null);
+                            if (msg_from_main_number) {
+                                smsmanager2.sendTextMessage(Main_Number, null, "Dats is On", null, null);
+                            } else if (msg_from_emergency_number) {
+                                smsmanager2.sendTextMessage(Emgergency_Number, null, "Dats is On", null, null);
+
+                            }}
+
                             break;
 
                         default:
@@ -214,6 +285,20 @@ public class CatchMessageClass extends BroadcastReceiver {
             }
 
         }
+        else
+        {
+            SmsManager smsmanager2 = SmsManager.getDefault();
+           // smsmanager2.sendTextMessage(DefaultNumber2, null, " Pet End Is Off ... ", null, null);
+
+            if (msg_from_main_number) {
+                smsmanager2.sendTextMessage(Main_Number, null, " Pet End Is Off ... ", null, null);
+            } else if (msg_from_emergency_number) {
+                smsmanager2.sendTextMessage(Emgergency_Number, null, " Pet End Is Off ... ", null, null);
+
+            }
+
+
+        }
    }
 
     public class Wifi{
@@ -223,9 +308,26 @@ public class CatchMessageClass extends BroadcastReceiver {
     public void WifiCheck() {
         if (wifimanager.isWifiEnabled()) {
 
-            smsmanager.sendTextMessage(DefaultNumber2, null, "Wifi is Enabled", null, null);
+            //smsmanager.sendTextMessage(DefaultNumber2, null, "Wifi is Enabled", null, null);
+            if (msg_from_main_number) {
+                smsmanager.sendTextMessage(Main_Number, null, "Wifi is Enabled", null, null);
+            } else if (msg_from_emergency_number) {
+                smsmanager.sendTextMessage(Emgergency_Number, null, "Wifi is Enabled", null, null);
+
+            }
+
+
+
         } else {
-            smsmanager.sendTextMessage(DefaultNumber2, null, "Wifi Is Not Enabled", null, null);
+           // smsmanager.sendTextMessage(DefaultNumber2, null, "Wifi Is Not Enabled", null, null);
+
+            if (msg_from_main_number) {
+                smsmanager.sendTextMessage(Main_Number, null, "Wifi is Not Enabled", null, null);
+            } else if (msg_from_emergency_number) {
+                smsmanager.sendTextMessage(Emgergency_Number, null, "Wifi is Not Enabled", null, null);
+
+            }
+
         }
     }
     public void Wifi_on(){

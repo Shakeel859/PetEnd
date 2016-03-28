@@ -1,5 +1,6 @@
 package com.example.shakeel.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -20,14 +21,18 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.Map;
+
 /**
  * Created by Bilal on 1/27/2016.
  */
-public class SettingsActivity extends AppCompatActivity {
-    EditText Main_text;
-    EditText Emer_text;
-    String Text1;
-    String Text2;
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
+    EditText Main_Number_EditText;
+    EditText Emergency_Number_Text;
+    String Main_Number;
+    String Emergency_Number;
+    String get_Main;
+    String get_Emergency;
    // GetNumber o1= new GetNumber();
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -35,53 +40,61 @@ public class SettingsActivity extends AppCompatActivity {
             setContentView(R.layout.settings_main);
 
 
-            Main_text = (EditText) findViewById(R.id.main_text);
-            Emer_text = (EditText) findViewById(R.id.emer_text);
-            Button Save = (Button) findViewById(R.id.save);
+                Main_Number_EditText = (EditText) findViewById(R.id.main_number);
+                Emergency_Number_Text = (EditText) findViewById(R.id.emer_number);
 
-            //String A = o1.GetNumber1();
-            //String B = o1.GetNumber2();
-            SharedPreferences sharedPreferences = SettingsActivity.this.getSharedPreferences(getString(R.string.PREF_FILE), MODE_PRIVATE);
-            Text1 = sharedPreferences.getString(getString(R.string.main_string), "");
-            Text2 = sharedPreferences.getString(getString(R.string.emergency_string), "");
+            SharedPreferences sharedPreferences = getSharedPreferences("NumberStorage", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Map<String, ?> allEntries = sharedPreferences.getAll();
+            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                if (entry.getKey().toString().equals("Main Number")) {
+                    get_Main = entry.getValue().toString();
+                    Main_Number_EditText.setText(get_Main);
 
-            Main_text.setText(Text1);
-            Emer_text.setText(Text2);
-            Save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences sharedPreferences = SettingsActivity.this.getSharedPreferences(getString(R.string.PREF_FILE), MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(getString(R.string.main_string), Main_text.getText().toString());
-                    editor.putString(getString(R.string.emergency_string), Emer_text.getText().toString());
-                    editor.commit();
+
                 }
-            });
 
+                if (entry.getKey().toString().equals("Emergency Number")) {
 
+                    get_Emergency = entry.getValue().toString();
+                    Emergency_Number_Text.setText(get_Emergency);
+                }
+                Button Save = (Button) findViewById(R.id.save);
+                Save.setOnClickListener(this);
 
-        }
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
 
             }
-
-            return super.onOptionsItemSelected(item);
         }
 
-    };
+
+
+
+    @Override
+    public void onClick(View v) {
+        Main_Number = Main_Number_EditText.getText().toString();
+        String Main_Number_Key = "Main Number";
+        String Emergency_Number_Key = "Emergency Number";
+        Emergency_Number = Emergency_Number_Text.getText().toString();
+        SharedPreferences sharedPreferences1 = getSharedPreferences("NumberStorage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+        editor1.putString(Main_Number_Key, Main_Number);
+        editor1.putString(Emergency_Number_Key, Emergency_Number);
+
+
+        editor1.commit();
+        Toast.makeText(this, " Number is saved Successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Main_Number_Key + " :  "  + Main_Number, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Emergency_Number_Key + " : "  + Emergency_Number, Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    public String Pass_Main_Number(){
+    return get_Main;}
+    public String Pass_Emergency_Number(){
+
+        return get_Emergency;
+    }
+
+};
 

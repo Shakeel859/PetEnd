@@ -5,30 +5,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".SettingsActivity">
 
-    <Button
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_text_info"
+        android:text=" Main Number"
+        android:gravity="center_horizontal"
+        android:paddingBottom="10dp"/>
+
+    <EditText
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_number"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/save"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emer_text_info"
+        android:text=" Emergency Number Number"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/main_number"/>
+    <EditText
+        android:inputType="number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emer_number"
+        android:layout_below="@+id/emer_text_info"
+        android:layout_alignEnd="@+id/emer_text_info"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/save"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="137dp" />
+        android:layout_below="@+id/emer_number"
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_text"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/save" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/emer_text"
-        android:layout_below="@+id/main_text"
-        android:layout_alignEnd="@+id/main_text"
-        android:layout_alignStart="@+id/main_text" />
-
+         />
 
 
 </RelativeLayout>
