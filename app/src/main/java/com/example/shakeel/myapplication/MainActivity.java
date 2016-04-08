@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Button mOff = (Button)findViewById(R.id.save);
       //  final Button mCheck = (Button)findViewById(R.id.check);
        final MyApplication g1 = MyApplication.getInstance();
-        Intent serviceIntent = new Intent();
-        serviceIntent.setAction("com.example.testandroid.BatteryService");
-        startService(serviceIntent);
+
         boolean s = g1.getRunning();
         String str = Boolean.toString(s);
         final TextView textView = (TextView) findViewById(R.id.textView);

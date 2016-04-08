@@ -53,7 +53,7 @@ public class CatchMessageClass extends BroadcastReceiver {
     String DefaultNumber2 = "+923315337994";
     Context ctx ;
     MyApplication g1 = MyApplication.getInstance();
-//
+
 
     String Main_Number;
     String Emgergency_Number;
@@ -66,9 +66,20 @@ public class CatchMessageClass extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SettingsActivity obj = new SettingsActivity();
-        Main_Number = obj.Pass_Main_Number();
-         Emgergency_Number = obj.Pass_Emergency_Number();
+
+       // SettingsActivity obj = new SettingsActivity();
+         SharedPreferences sharedPreferences = context.getSharedPreferences("NumberStorage", Context.MODE_PRIVATE);
+           Main_Number = sharedPreferences.getString("Main Number", null);
+          Emgergency_Number = sharedPreferences.getString("Emergency Number",null);
+
+
+
+
+       // final
+      // final  String Emergency_Number = obj.Pass_Emergency_Number();
+
+
+        //Intent intent1 = new Intent(this,SettingsActivity.class);
 
        // Toast.makeText(CatchMessageClass.this, "", Toast.LENGTH_SHORT).show();
 
@@ -96,15 +107,25 @@ public class CatchMessageClass extends BroadcastReceiver {
                     number = message.getDisplayOriginatingAddress();
                     messagebody = message.getDisplayMessageBody();
                 }
+                ShowNotification showNotification1 = new ShowNotification();
+               // showNotification1.ViaToast(context,number);
+                showNotification1.ViaToast(context,number);
+                showNotification1.ViaToast(context,  " Main" + Main_Number   + " Emergency "+ Emgergency_Number);
+
+
                 if (number.equals(Main_Number) || number.equals(Emgergency_Number))
                 {
                     if(number.equals(Main_Number)){
                         msg_from_main_number = true;
+                        ShowNotification showNotification = new ShowNotification();
+                        showNotification.ViaToast(context,number);
 
                     }
                     if(number.equals(Emgergency_Number)){
 
                        msg_from_emergency_number = true;
+                        ShowNotification showNotification = new ShowNotification();
+                        showNotification.ViaToast(context,number);
                     }
 
 

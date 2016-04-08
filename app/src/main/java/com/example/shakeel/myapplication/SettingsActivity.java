@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -33,40 +34,39 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     String Emergency_Number;
     String get_Main;
     String get_Emergency;
-   // GetNumber o1= new GetNumber();
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.settings_main);
+
+    // GetNumber o1= new GetNumber();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_main);
 
 
-                Main_Number_EditText = (EditText) findViewById(R.id.main_number);
-                Emergency_Number_Text = (EditText) findViewById(R.id.emer_number);
+        Main_Number_EditText = (EditText) findViewById(R.id.main_number);
+        Emergency_Number_Text = (EditText) findViewById(R.id.emer_number);
 
-            SharedPreferences sharedPreferences = getSharedPreferences("NumberStorage", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            Map<String, ?> allEntries = sharedPreferences.getAll();
-            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                if (entry.getKey().toString().equals("Main Number")) {
-                    get_Main = entry.getValue().toString();
-                    Main_Number_EditText.setText(get_Main);
-
-
-                }
-
-                if (entry.getKey().toString().equals("Emergency Number")) {
-
-                    get_Emergency = entry.getValue().toString();
-                    Emergency_Number_Text.setText(get_Emergency);
-                }
-                Button Save = (Button) findViewById(R.id.save);
-                Save.setOnClickListener(this);
+        SharedPreferences sharedPreferences = getSharedPreferences("NumberStorage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Map<String, ?> allEntries = sharedPreferences.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            if (entry.getKey().toString().equals("Main Number")) {
+                get_Main = entry.getValue().toString();
+                Main_Number_EditText.setText(get_Main);
 
 
             }
+
+            if (entry.getKey().toString().equals("Emergency Number")) {
+
+                get_Emergency = entry.getValue().toString();
+                Emergency_Number_Text.setText(get_Emergency);
+            }
+            Button Save = (Button) findViewById(R.id.save);
+            Save.setOnClickListener(this);
+
+
         }
-
-
+    }
 
 
     @Override
@@ -83,18 +83,26 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         editor1.commit();
         Toast.makeText(this, " Number is saved Successfully", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Main_Number_Key + " :  "  + Main_Number, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Emergency_Number_Key + " : "  + Emergency_Number, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Main_Number_Key + " :  " + Main_Number, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Emergency_Number_Key + " : " + Emergency_Number, Toast.LENGTH_SHORT).show();
 
     }
 
 
-    public String Pass_Main_Number(){
-    return get_Main;}
-    public String Pass_Emergency_Number(){
+    public String Pass_Main_Number() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String Main_Number =  sharedPreferences.getString("Main Number", "DefaultValue");
+        return Main_Number;
 
-        return get_Emergency;
+
     }
 
-};
+    public String Pass_Emergency_Number() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String Main_Number =  sharedPreferences.getString("Emergency Number", "DefaultValue");
+        return Main_Number;
+    }
+
+}
+
 
