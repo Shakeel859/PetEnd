@@ -34,12 +34,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     String Emergency_Number;
     String get_Main;
     String get_Emergency;
+    Button Save;
 
     // GetNumber o1= new GetNumber();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_main);
+        Save = (Button) findViewById(R.id.save);
+        Save.setOnClickListener(this);
 
 
         Main_Number_EditText = (EditText) findViewById(R.id.main_number);
@@ -61,8 +64,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 get_Emergency = entry.getValue().toString();
                 Emergency_Number_Text.setText(get_Emergency);
             }
-            Button Save = (Button) findViewById(R.id.save);
-            Save.setOnClickListener(this);
+
 
 
         }
@@ -71,6 +73,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+
+        Toast.makeText(SettingsActivity.this, " Button is working ", Toast.LENGTH_SHORT).show();
+
+
         Main_Number = Main_Number_EditText.getText().toString();
         String Main_Number_Key = "Main Number";
         String Emergency_Number_Key = "Emergency Number";
@@ -85,6 +91,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         Toast.makeText(this, " Number is saved Successfully", Toast.LENGTH_SHORT).show();
         Toast.makeText(this, Main_Number_Key + " :  " + Main_Number, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, Emergency_Number_Key + " : " + Emergency_Number, Toast.LENGTH_SHORT).show();
+
 
     }
 
