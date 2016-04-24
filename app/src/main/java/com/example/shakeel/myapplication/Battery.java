@@ -40,7 +40,7 @@ public class Battery extends BroadcastReceiver {
             Main_Number = sharedPreferences.getString("Main Number", null);
             SmsManager smsmanager = SmsManager.getDefault();
             String batt_level = Integer.toString(level);
-            smsmanager.sendTextMessage(Main_Number, null, batt_level, null, null);
+            smsmanager.sendTextMessage(Main_Number, null, "low="+batt_level, null, null);
             pre_battery = level;
       // }
          }
